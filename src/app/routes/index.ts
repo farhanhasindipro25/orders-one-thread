@@ -1,7 +1,7 @@
 import express from "express";
 import { OrderRoutes } from "../modules/orders/orders.routes";
 
-const router = express.Router();
+const APP_ROUTER = express.Router();
 
 const moduleRoutes = [
   {
@@ -10,4 +10,6 @@ const moduleRoutes = [
   },
 ];
 
-moduleRoutes.forEach((route) => router.use(route.path, route.route));
+moduleRoutes.forEach((route) => APP_ROUTER.use(route.path, route.route));
+
+export default APP_ROUTER;
