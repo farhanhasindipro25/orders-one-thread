@@ -28,9 +28,24 @@ const getOrdersList = async (
     message: "All orders data retrieved",
     data: result,
   });
+  next();
+};
+
+const updateOrderDetails = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const updatedData = req.body;
+  const result = await OrdersServices.PATCH_ORDER_TO_DB(id, updatedData);
+
+  sendResponse<IOrders>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Order Information updated",
+    data: result,
+  });
 };
 
 export const OrdersController = {
   createOrder,
   getOrdersList,
+  updateOrderDetails,
 };
