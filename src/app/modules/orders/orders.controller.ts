@@ -44,8 +44,21 @@ const updateOrderDetails = async (req: Request, res: Response) => {
   });
 };
 
+const deleteOrder = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const result = await OrdersServices.DELETE_ORDER_FROM_DB(id);
+
+  sendResponse<IOrders>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: `Order with id ${id} has been deleted`,
+    data: result,
+  });
+};
+
 export const OrdersController = {
   createOrder,
   getOrdersList,
   updateOrderDetails,
+  deleteOrder,
 };

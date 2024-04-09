@@ -37,8 +37,14 @@ const PATCH_ORDER_TO_DB = async (
   return result;
 };
 
+const DELETE_ORDER_FROM_DB = async (id: string): Promise<IOrders | null> => {
+  const result = await OrderModel.findByIdAndDelete(id);
+  return result;
+};
+
 export const OrdersServices = {
   ADD_ORDER_TO_DB,
   GET_ORDERS_FROM_DB,
   PATCH_ORDER_TO_DB,
+  DELETE_ORDER_FROM_DB,
 };
