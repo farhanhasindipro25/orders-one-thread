@@ -3,7 +3,7 @@ import { Model } from "mongoose";
 export interface IOrders {
   order: {
     id: string;
-    date: Date;
+    date: string;
     notes?: string;
     status: string;
     payment_details?: {

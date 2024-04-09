@@ -9,7 +9,7 @@ const ordersSchema = new Schema<IOrders>(
         required: true,
       },
       date: {
-        type: Date,
+        type: String,
         required: true,
         default: Date.now,
       },
