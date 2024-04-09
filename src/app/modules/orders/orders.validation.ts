@@ -46,7 +46,7 @@ const createOrderZodSchema = z.object({
   ),
 });
 
-const updateOrderZodSchema = z.object({
+const PUTOrderZodSchema = z.object({
   order: z.object({
     id: z.string().optional(),
     date: z.string().optional(),
@@ -96,8 +96,65 @@ const updateOrderZodSchema = z.object({
     })
   ),
 });
+const PATCHOrderZodSchema = z.object({
+  order: z
+    .object({
+      id: z.string().optional(),
+      date: z.string().optional(),
+      notes: z.string().optional(),
+      status: z.string().optional(),
+      payment_details: z
+        .object({
+          method: z.string().optional(),
+          transaction_id: z.string().optional(),
+          promo_code: z
+            .object({
+              code: z.string().optional(),
+              amount: z
+                .number()
+                .min(0, "Promo code amount must be a positive number")
+                .optional(),
+            })
+            .optional(),
+          total: z.number().optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+  customer: z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+      email: z.string().email("Invalid email address").optional(),
+      phone: z.string().optional(),
+      address: z.object({
+        street: z.string().optional(),
+        city: z.string().optional(),
+        state: z.string().optional(),
+        postal_code: z.string().optional(),
+        country: z.string().optional(),
+      }),
+    })
+    .optional(),
+  products: z
+    .array(
+      z.object({
+        id: z.string().optional(),
+        name: z.string().optional(),
+        quantity: z
+          .number()
+          .int()
+          .min(1, "Quantity must be at least 1")
+          .optional(),
+        in_stock: z.boolean().optional(),
+        price: z.number().min(0, "Price must be a positive number").optional(),
+      })
+    )
+    .optional(),
+});
 
 export const OrderValidation = {
   createOrderZodSchema,
-  updateOrderZodSchema,
+  PUTOrderZodSchema,
+  PATCHOrderZodSchema,
 };

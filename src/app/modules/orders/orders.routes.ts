@@ -13,12 +13,12 @@ router.post(
 router.get("/", OrdersController.getOrdersList);
 router.put(
   "/:id",
-  validateRequest(OrderValidation.updateOrderZodSchema),
+  validateRequest(OrderValidation.PUTOrderZodSchema),
   OrdersController.updateAndReplaceOrderDetails
 );
 router.patch(
   "/:id",
-  validateRequest(OrderValidation.updateOrderZodSchema),
+  validateRequest(OrderValidation.PATCHOrderZodSchema),
   OrdersController.partiallyUpdateOrderDetails
 );
 router.delete("/:id", OrdersController.deleteOrder);
