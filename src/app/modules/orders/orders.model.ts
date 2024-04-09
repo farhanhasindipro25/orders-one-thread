@@ -42,7 +42,6 @@ const ordersSchema = new Schema<IOrders>(
         },
         total: {
           type: Number,
-          required: true,
         },
       },
     },
