@@ -59,8 +59,10 @@
 
 5. Add the following variables in the `.env` file. The config file handles everything.
 
-`NODE_ENVIRONMENT=development
-PORT=5000`
+```
+NODE_ENVIRONMENT=development
+PORT=5000
+```
 
 6. Now, you need to create a Database in MongoDB. Visit MongoDB Atlas and Sign In.
 7. Click on the`Database`tab on the left and click on`Connect`.
