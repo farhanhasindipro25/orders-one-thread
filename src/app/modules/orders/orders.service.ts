@@ -20,6 +20,12 @@ const ADD_ORDER_TO_DB = async (payload: IOrders): Promise<IOrders> => {
   return processedResult;
 };
 
+const GET_ORDERS_FROM_DB = async (): Promise<IOrders[]> => {
+  const orders = await OrderModel.find();
+  return orders;
+};
+
 export const OrdersServices = {
   ADD_ORDER_TO_DB,
+  GET_ORDERS_FROM_DB,
 };

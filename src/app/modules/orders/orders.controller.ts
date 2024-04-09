@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { OrdersServices } from "./orders.service";
 import sendResponse from "../../utilities/sendResponse";
 import { IOrders } from "./orders.interface";
@@ -16,6 +16,21 @@ const createOrder = async (req: Request, res: Response) => {
   } catch (error) {}
 };
 
+const getOrdersList = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const result = await OrdersServices.GET_ORDERS_FROM_DB();
+  sendResponse<IOrders[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "All orders data retrieved",
+    data: result,
+  });
+};
+
 export const OrdersController = {
   createOrder,
+  getOrdersList,
 };
