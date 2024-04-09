@@ -37,6 +37,20 @@ const PATCH_ORDER_TO_DB = async (
   return result;
 };
 
+const PUT_ORDER_TO_DB = async (
+  id: string,
+  payload: Partial<IOrders>
+): Promise<IOrders | null> => {
+  try {
+    const result = await OrderModel.findOneAndUpdate({ _id: id }, payload, {
+      new: true,
+    });
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const DELETE_ORDER_FROM_DB = async (id: string): Promise<IOrders | null> => {
   const result = await OrderModel.findByIdAndDelete(id);
   return result;
@@ -46,5 +60,6 @@ export const OrdersServices = {
   ADD_ORDER_TO_DB,
   GET_ORDERS_FROM_DB,
   PATCH_ORDER_TO_DB,
+  PUT_ORDER_TO_DB,
   DELETE_ORDER_FROM_DB,
 };

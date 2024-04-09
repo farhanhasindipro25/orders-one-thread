@@ -31,7 +31,7 @@ const getOrdersList = async (
   next();
 };
 
-const updateOrderDetails = async (req: Request, res: Response) => {
+const partiallyUpdateOrderDetails = async (req: Request, res: Response) => {
   const id = req.params.id;
   const updatedData = req.body;
   const result = await OrdersServices.PATCH_ORDER_TO_DB(id, updatedData);
@@ -39,7 +39,19 @@ const updateOrderDetails = async (req: Request, res: Response) => {
   sendResponse<IOrders>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Order Information updated",
+    message: `Order Information for id:${id} updated`,
+    data: result,
+  });
+};
+
+const updateAndReplaceOrderDetails = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const updatedData = req.body;
+  const result = await OrdersServices.PUT_ORDER_TO_DB(id, updatedData);
+  sendResponse<IOrders>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: `Order Information of id:${id} updated and replaced`,
     data: result,
   });
 };
@@ -59,6 +71,7 @@ const deleteOrder = async (req: Request, res: Response) => {
 export const OrdersController = {
   createOrder,
   getOrdersList,
-  updateOrderDetails,
+  partiallyUpdateOrderDetails,
+  updateAndReplaceOrderDetails,
   deleteOrder,
 };
